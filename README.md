@@ -9,6 +9,7 @@
 [![Mindorks](https://img.shields.io/badge/Mindorks%20Newsletter-%234-ff69b4.svg)](https://mindorks.com/newsletter/edition/4)
 
 
+
 A Photo Editor library with simple, easy support for image editing using Paints, Text, Filters, Emoji and Sticker like stories.
 
 [Download link](https://drive.google.com/drive/folders/1pw_iZ_PIyOSJzCWR_uLnoe7PKCDTgosp?usp=sharing)
