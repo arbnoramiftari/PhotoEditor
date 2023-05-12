@@ -1,12 +1,15 @@
 package com.burhanrashid52.photoediting
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.core.content.ContextCompat
-import java.util.ArrayList
+import androidx.core.graphics.ColorUtils
+import androidx.recyclerview.widget.RecyclerView
+
 
 /**
  * Created by Ahmed Adel on 5/8/17.
@@ -30,7 +33,18 @@ class ColorPickerAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.colorPickerView.setBackgroundColor(colorPickerColors[position])
+        val backgroundDrawable = holder.colorPickerView.background as GradientDrawable
+
+        //make it possible to change the color of the drawable
+        backgroundDrawable.mutate()
+        //get a darker shade of the actual color (except for black)
+        val darkerShade =
+            if (colorPickerColors[position] == ContextCompat.getColor((context), R.color.black))
+                ColorUtils.blendARGB(colorPickerColors[position], Color.WHITE, 0.2f)
+            else
+                ColorUtils.blendARGB(colorPickerColors[position], Color.BLACK, 0.2f)
+        //change the start and end color of the gradient drawable
+        backgroundDrawable.colors = intArrayOf(colorPickerColors[position], darkerShade)
     }
 
     override fun getItemCount(): Int {
