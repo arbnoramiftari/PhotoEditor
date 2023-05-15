@@ -58,7 +58,9 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
     lateinit var mPhotoEditor: PhotoEditor
     private lateinit var mPhotoEditorView: PhotoEditorView
     private lateinit var mPropertiesBSFragment: PropertiesBSFragment
-    private lateinit var mShapeBSFragment: ShapeBSFragment
+    private lateinit var mDrawBSFragment: ShapeBSFragment
+    private lateinit var mCircleBSFragment: ShapeBSFragment
+    private lateinit var mArrowBSFragment: ShapeBSFragment
     private lateinit var mShapeBuilder: ShapeBuilder
     private lateinit var mEmojiBSFragment: EmojiBSFragment
     private lateinit var mStickerBSFragment: StickerBSFragment
@@ -91,11 +93,15 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
         mPropertiesBSFragment = PropertiesBSFragment()
         mEmojiBSFragment = EmojiBSFragment()
         mStickerBSFragment = StickerBSFragment()
-        mShapeBSFragment = ShapeBSFragment()
+        mDrawBSFragment = ShapeBSFragment(0)
+        mCircleBSFragment = ShapeBSFragment(1)
+        mArrowBSFragment = ShapeBSFragment(2)
         mStickerBSFragment.setStickerListener(this)
         mEmojiBSFragment.setEmojiListener(this)
         mPropertiesBSFragment.setPropertiesChangeListener(this)
-        mShapeBSFragment.setPropertiesChangeListener(this)
+        mDrawBSFragment.setPropertiesChangeListener(this)
+        mCircleBSFragment.setPropertiesChangeListener(this)
+        mArrowBSFragment.setPropertiesChangeListener(this)
 
         val llmTools = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mRvTools.layoutManager = llmTools
@@ -396,12 +402,26 @@ class EditImageActivity : BaseActivity(), OnPhotoEditorListener, View.OnClickLis
 
     override fun onToolSelected(toolType: ToolType) {
         when (toolType) {
-            ToolType.SHAPE -> {
+            ToolType.DRAW -> {
                 mPhotoEditor.setBrushDrawingMode(true)
                 mShapeBuilder = ShapeBuilder()
                 mPhotoEditor.setShape(mShapeBuilder)
                 mTxtCurrentTool.setText(R.string.label_shape)
-                showBottomSheetDialogFragment(mShapeBSFragment)
+                showBottomSheetDialogFragment(mDrawBSFragment)
+            }
+            ToolType.CIRCLE -> {
+                mPhotoEditor.setBrushDrawingMode(true)
+                mShapeBuilder = ShapeBuilder()
+                mPhotoEditor.setShape(mShapeBuilder)
+                mTxtCurrentTool.setText(R.string.label_shape)
+                showBottomSheetDialogFragment(mCircleBSFragment)
+            }
+            ToolType.ARROW -> {
+                mPhotoEditor.setBrushDrawingMode(true)
+                mShapeBuilder = ShapeBuilder()
+                mPhotoEditor.setShape(mShapeBuilder)
+                mTxtCurrentTool.setText(R.string.label_shape)
+                showBottomSheetDialogFragment(mArrowBSFragment)
             }
             ToolType.TEXT -> {
                 val textEditorDialogFragment = TextEditorDialogFragment.show(this)

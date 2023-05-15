@@ -12,7 +12,8 @@ import com.burhanrashid52.photoediting.ColorPickerAdapter.OnColorPickerClickList
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ja.burhanrashid52.photoeditor.shape.ShapeType
 
-class ShapeBSFragment : BottomSheetDialogFragment(), SeekBar.OnSeekBarChangeListener {
+class ShapeBSFragment(private val type: Int) : BottomSheetDialogFragment(),
+    SeekBar.OnSeekBarChangeListener {
     private var mProperties: Properties? = null
 
     interface Properties {
@@ -37,21 +38,39 @@ class ShapeBSFragment : BottomSheetDialogFragment(), SeekBar.OnSeekBarChangeList
         val sbBrushSize = view.findViewById<SeekBar>(R.id.shapeSize)
         val shapeGroup = view.findViewById<RadioGroup>(R.id.shapeRadioGroup)
 
+        when (type) {
+            1 -> {
+                mProperties!!.onShapePicked(ShapeType.Oval)
+            }
+
+            2 -> {
+                mProperties!!.onShapePicked(ShapeType.Arrow())
+            }
+
+            else -> {
+                mProperties!!.onShapePicked(ShapeType.Brush)
+            }
+        }
+
         // shape picker
         shapeGroup.setOnCheckedChangeListener { _: RadioGroup?, checkedId: Int ->
             when (checkedId) {
                 R.id.lineRadioButton -> {
                     mProperties!!.onShapePicked(ShapeType.Line)
                 }
+
                 R.id.arrowRadioButton -> {
                     mProperties!!.onShapePicked(ShapeType.Arrow())
                 }
+
                 R.id.ovalRadioButton -> {
                     mProperties!!.onShapePicked(ShapeType.Oval)
                 }
+
                 R.id.rectRadioButton -> {
                     mProperties!!.onShapePicked(ShapeType.Rectangle)
                 }
+
                 else -> {
                     mProperties!!.onShapePicked(ShapeType.Brush)
                 }
@@ -87,6 +106,7 @@ class ShapeBSFragment : BottomSheetDialogFragment(), SeekBar.OnSeekBarChangeList
             R.id.shapeOpacity -> if (mProperties != null) {
                 mProperties!!.onOpacityChanged(i)
             }
+
             R.id.shapeSize -> if (mProperties != null) {
                 mProperties!!.onShapeSizeChanged(i)
             }
