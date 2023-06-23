@@ -249,7 +249,7 @@ internal class MultiTouchListener(
 
     init {
         mScaleGestureDetector = ScaleGestureDetector(ScaleGestureListener())
-        mGestureListener = GestureDetector(GestureListener())
+        mGestureListener = GestureDetector(deleteView?.context, GestureListener())
         this.deleteView = deleteView
         this.photoEditorView = photoEditorView
         this.photoEditImageView = photoEditImageView

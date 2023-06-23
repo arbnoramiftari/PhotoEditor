@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.burhanrashid52.photoediting.R
+import ja.burhanrashid52.photoeditor.R
 import java.util.ArrayList
 
 /**

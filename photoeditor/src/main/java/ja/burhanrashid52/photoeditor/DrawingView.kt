@@ -52,7 +52,7 @@ class DrawingView @JvmOverloads constructor(
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)
 
         // apply shape builder parameters
-        currentShapeBuilder?.apply {
+        currentShapeBuilder.apply {
             paint.strokeWidth = this.shapeSize
             // 'paint.color' must be called before 'paint.alpha',
             // otherwise 'paint.alpha' value will be overwritten.
@@ -120,7 +120,7 @@ class DrawingView @JvmOverloads constructor(
     private fun onTouchEventUp(touchX: Float, touchY: Float) {
         currentShape?.apply {
             shape.stopShape()
-            endShape(touchX, touchY)
+            endShape()
         }
     }
 
@@ -155,7 +155,7 @@ class DrawingView @JvmOverloads constructor(
         viewChangeListener?.onStartDrawing()
     }
 
-    private fun endShape(touchX: Float, touchY: Float) {
+    private fun endShape() {
         if (currentShape?.shape?.hasBeenTapped() == true) {
             // just a tap, this is not a shape, so remove it
             drawShapes.remove(currentShape)
